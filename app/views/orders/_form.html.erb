@@ -1,0 +1,79 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="col-md-12">
+  <br><br> <hr>
+<%= form_with(model: order, local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table>
+    <% @cart.line_item.each do |item| %>
+    <tr>
+      <td><%= image_tag item.product.image.url(:small) %></td>
+      <td><%= item.product.name %></td>
+      <td><%= item.quantity %>&times;</td>
+      <td class="item_price"><%= number_to_currency(item.total_price) %></td>
+    </tr>
+  <% end %>
+<tr class="total_line">
+  <td colspan="2"><b><hr>Total Price :</b></td>
+  <td></td>
+  <td class="total_cell"><b><hr><%= number_to_currency(@cart.total_price) %></b></td>
+</tr>
+</table>
+
+
+  <div class="field">
+   <%= form.hidden_field :user_id, value: current_user[:id] %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :cart_id, value: @cart[:id] %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :total_price, value: @cart.total_price.to_d %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :payment_time %>
+  </div>
+
+  <%= form_tag conversations_path, method: :post do %>
+  <div class="field">
+    <%= form.hidden_field :user_id, value: @line_item.product.user.id %>
+  </div>
+
+  <div class="field">
+      <%= form.hidden_field :subject, value: "New Order" %>
+  </div>
+
+  <div class="field">
+      <%= form.hidden_field :body, value: "You Have New Order" %>
+  </div>
+
+<div class="actions">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_j79CwAThdaez7YmR7wIfU6px"
+    data-amount= "@cart.total_price * 100"
+    data-name="Pay With Card"
+    data-description="#"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto">
+  </script>
+</div>
+
+<% end %>
+<% end %>
+</div>
+</div>
+</div>

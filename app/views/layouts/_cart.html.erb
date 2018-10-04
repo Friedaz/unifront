@@ -1,0 +1,45 @@
+
+<!-- Modal -->
+<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Your Cart</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+<% if @cart.line_item.blank? %>
+  <table><tr><td><h3> Cart empty</h3></td></tr></table>
+  <% else %>
+  <table>
+    <% @cart.line_item.each do |item| %>
+    <tr>
+      <td><%= image_tag item.product.image.url(:small) %></td>
+      <td><%= item.product.name %></td>
+      <td><%= item.quantity %>&times;</td>
+      <td class="item_price"><%= number_to_currency(item.total_price) %></td>
+    </tr>
+  <% end %>
+<tr class="total_line">
+  <td colspan="2"><b><hr>Total Price :</b></td>
+  <td></td>
+  <td class="total_cell"><b><hr><%= number_to_currency(@cart.total_price) %></b></td>
+</tr>
+<% end %>
+</table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+<%= link_to 'Empty cart', @cart, method: :delete,
+                              data: { confirm: 'Are you sure?' } %></button>
+        <button type="button" class="btn btn-primary"><%= link_to "Buy now",
+                              new_order_path, method: :get %></button>
+      </div>
+    </div>
+  </div>
+</div>
+

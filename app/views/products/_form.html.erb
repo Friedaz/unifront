@@ -1,0 +1,52 @@
+<%= form_with(model: product, local: true, multipart: true ) do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image, type: :file, multiple: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expired %>
+    <%= form.hidden_field :expired %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :user_id, value: current_user[:id] %>
+  </div>
+
+  <div class="field">
+  <b><%= form.label "Store ID" %></b>
+  <%= form.select :store_id, options_for_select(current_user.store_ids), { prompt: true, selected: 'Please select store Id' }, required: true %>
+</div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

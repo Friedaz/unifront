@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Unifront</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track'=> true %>
+    <%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+
+    <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+  </head>
+
+  <body>
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal">UniFront</h5>
+
+
+      <div class="col-md-5">
+        <nav class="my-2 my-md-0 mr-md-6">
+            <div id="custom-search-input">
+            <%= form_tag root_path, :method => 'get'  do %>
+                <%= text_field_tag :search, params[:search], class: 'form-control input-lg', placeholder: 'Search...'%>
+          </div>
+        </div>
+            <%= button_tag :type => "submit", :class => "btn btn-outline-secondary btn-md" do %>
+                <img src="/assets/search.png" style="height: 22px;">
+            <% end %>
+        <% end %>
+           <!-- <div id="custom-search-input">
+            <div class="input-group col-md-12">
+              <input type="text" class="form-control input-lg" placeholder="Search" />
+              <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" type="button">
+                  <img src="/assets/search.png" style="height: 22px;">
+                </button>
+              </span>
+            </div>
+          </div> -->
+
+        <div class="col-md-1"></div>
+
+        <a class="btn btn-outline-default" <%= link_to "Sign In", new_user_session_path %></a>
+        Or
+        <a class="btn btn-outline-default" <%= link_to "Sign Out", destroy_user_session_path, method: :delete %></a>
+
+      </nav>
+  </div>
+<hr>
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex">
+          <a class="p-2 text-muted" <%= link_to "Product", root_path %></a>
+           <% if  user_signed_in? %>
+          <a class="p-2 text-muted" <%= link_to "My account", profil_path %></a>
+          <a class="p-2 text-muted" data-toggle="modal" data-target="#cart">My Cart<span class="badge"><%= @cart.line_item.count %></span></a>
+             <% end %>
+        </nav>
+        </nav>
+      </div><hr>
+    <%= yield %>
+
+  </body>
+</html>

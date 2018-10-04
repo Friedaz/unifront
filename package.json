@@ -1,0 +1,8 @@
+{
+  "name": "unifront",
+  "private": true,
+  "dependencies": {
+    "card": "^2.4.0",
+    "jquery": "^3.3.1"
+  }
+}

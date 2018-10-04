@@ -1,0 +1,3 @@
+class MailboxController < ApplicationController
+
+end

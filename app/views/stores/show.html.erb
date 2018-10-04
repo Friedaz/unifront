@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @store.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @store.description %>
+</p>
+
+<p>
+  <strong>Logo:</strong>
+  <%= @store.logo %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @store.user %>
+</p>
+
+<% if @store.user == current_user %>
+<%= link_to 'Edit', edit_store_path(@store) %> |
+<% end %>
+<%= link_to 'Back', stores_path %>

@@ -1,0 +1,17 @@
+
+
+      <h5>Hi, <%= current_user[:email] %></h5><br><br><hr>
+        <h2>My Profile</h2>
+          <div class="album py-5 bg-light">
+          <div class="container">
+
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary" ><%= link_to 'View My product', products_path %></button>
+            </div>
+            <hr>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-outline-secondary" ><%= link_to 'View My Store', stores_path %></button>
+        </div>
+      </div>
+  </div>

@@ -1,0 +1,171 @@
+<p id="notice"><%= notice %></p>
+
+<link rel="stylesheet" href="jquery.raty.css">
+<script src="jquery.raty.js"></script>
+
+<div class="panel panel-default">
+  <div class="panel-body"> <br>
+    <div class="row">
+
+      <div class="col-md-6">
+        <%= link_to image_tag(@product.image.url(:medium)), image_path(@product.image.url(:large)), data: { lightbox: "product",
+            title: @product.name, footer: @product.description, class: "img-fluid" }  %> <br><br>
+            <div class="star-rating" data-score= <%= @avg_review %> ></div>
+            <em><%= "#{@reviews.length} reviews" %></em>
+      </div>
+
+        <div class="col-md-6">
+            <div class="table-responsive">
+                  <table class="table">
+                    <tbody>
+                        <tr>
+                          <td><h2><%= @product.name %></h2></td>
+                          <td> </td>
+                          <td> </td>
+                        </tr>
+                        <tr>
+                          <td><b>PRICE </b></td>
+                          <td>:</td>
+                          <td><%= number_to_currency @product.price %></td>
+                        </tr>
+                        <tr>
+                          <td><b>STORE</b></td>
+                          <td>:</td>
+                          <td><%= @product.store.name %></td>
+                        </tr>
+                        <tr>
+                            <td><b>QUANTITY</b></td>
+                            <td>:</td>
+                            <td>
+                                <div class="col-md-8">
+                                        <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="quantity-left-minus btn btn-light btn-number"  data-type="minus" data-field="">
+                                          <span class="glyphicon glyphicon-minus"></span>
+                                        </button>
+                                    </span>
+                                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="0" min="0" max="100" style= "text-align: center; border-radius: 1px;" >
+                                    <span class="input-group-btn">
+                                        <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                        </div>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+        </div>
+
+     </div>
+  </div>
+
+      <hr>
+      <hr>
+
+        <div class="col-md-10">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Product Description</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Review</a>
+            </div>
+          </nav>
+        <div class="tab-content" id="nav-tabContent">
+           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div class="table-responsive">
+                  <table class="table">
+                    <tbody>
+                        <tr>
+                          <td><h4>Description :</h4></td>
+                        </tr>
+                        <tr>
+                          <td><%= @product.description %></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <% if user_signed_in? && current_user[:id] != @product[:user_id] %>
+                  <%= link_to "Write Review", new_product_review_path(:product_id => @product) %>
+              <% end %> <br> <hr>
+              <% if @reviews.blank? %>
+                <h3>No reviews just yet, would you like to add the first!</h3>
+              <% else %>
+                <% @reviews.each do |review| %>
+                  <div class="reviews">
+                    <table class="table-responsive">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <p><b><%= review.user.email %></b></p>
+                            <div class="star-rating" data-score= <%= review.rating %> ></div>
+                            <p><%= review.comment %></p> <hr>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                <% end %>
+              <% end %>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<script>
+    $('.star-rating').raty({
+        readOnly: true,
+        path: '/assets/',
+        score: function() {
+            return $(this).attr('data-score')
+        }
+    });
+</script>
+
+<%= render 'layouts/cart' %>
+
+<!--
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @product.image %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @product.price %>
+</p>
+
+<p>
+  <strong>Expired:</strong>
+  <%= @product.expired %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @product.user %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @product.store %>
+</p>
+
+<% if @product.user == current_user %>
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<% end %>
+<%= link_to 'Back', products_path %>
+ -->

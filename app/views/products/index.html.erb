@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>My Products</h1>
+<div class="album py-5 bg-light">
+        <div class="container">
+          <h3>My Product</h3><hr>
+               <div class="row">
+            <% current_user.product.each do |product| %>
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" <%= image_tag product.image.url(:medium) %><alt="Card image cap">
+                <div class="card-body">
+                  <p class="card-text"><h3><%= product.name %></h3></p>
+                  Price : <p class="card-text"><%= product.price %></p>
+                  <small class="text-muted">Expired on :  <%= product.expired %></small><hr>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary" ><%= link_to 'View', product %></button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" ><%= link_to 'Edit', edit_product_path(product) %></button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" ><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+<hr>
+<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-outline-secondary" ><%= link_to 'Add New Product', new_product_path %></button>
+    </div>
