@@ -1,4 +1,7 @@
 class ConversationsController < ApplicationController
+
+include CurrentCart
+  before_action :set_cart
   before_action :authenticate_user!
   before_action :get_mailbox
 

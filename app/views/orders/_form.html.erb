@@ -61,6 +61,7 @@
   </div>
 
 <div class="actions">
+  <%= link_to '', new_conversation_path(:recipient_id => @line_item.product.user.id), class: 'send-message-icon' %>
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="pk_test_j79CwAThdaez7YmR7wIfU6px"

@@ -6,14 +6,14 @@ include CurrentCart
 
 
 def index
-    @products = Product.all.paginate(page: params[:page], per_page: 3)
+    @products = Product.all.paginate(page: params[:page], per_page: 6)
     @carts = Cart.all
     @line_item = LineItem.last
 
     if params[:search]
-        @products = Product.where('name LIKE ?', "%#{params[:search]}%").paginate(page: params[:page], per_page: 3)
+        @products = Product.where('name LIKE ?', "%#{params[:search]}%").paginate(page: params[:page], per_page: 6)
     else
-        @products = Product.all.paginate(page: params[:page], per_page: 3)
+        @products = Product.all.paginate(page: params[:page], per_page: 6)
     end
   end
 
