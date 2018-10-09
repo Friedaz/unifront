@@ -31,7 +31,7 @@
                         <tr>
                           <td><b>STORE</b></td>
                           <td>:</td>
-                          <td><%= @product.store.name %></td>
+                          <td><%= link_to image_tag @product.store.logo.url(:thumb) %></td>
                         </tr>
                         <tr>
                             <td><b>QUANTITY</b></td>
@@ -115,18 +115,6 @@
         </div>
     </div>
   </div>
-
-<script>
-    $('.star-rating').raty({
-        readOnly: true,
-        path: '/assets/',
-        score: function() {
-            return $(this).attr('data-score')
-        }
-    });
-</script>
-
-<%= render 'layouts/cart' %>
 
 <!--
 <p>

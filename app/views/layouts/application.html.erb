@@ -60,7 +60,7 @@
           <a class="p-2 text-muted" <%= link_to "Product", root_path %></a>
            <% if  user_signed_in? %>
           <a class="p-2 text-muted" <%= link_to "My account", profil_path %></a>
-          <a class="p-2 text-muted" data-toggle="modal" data-target="#cart">My Cart<span class="badge">
+          <a class="p-2 text-muted" data-toggle="modal" data-target="#cart">My Cart<span class="badge badge-info">
               <%= @cart.line_item.sum(:quantity) %></span></a>
           <% end %>
         </nav>
@@ -79,3 +79,15 @@
     </footer>
 
 </html>
+
+<%= render 'layouts/cart' %>
+
+<script>
+    $('.star-rating').raty({
+        readOnly: true,
+        path: '/assets/',
+        score: function() {
+            return $(this).attr('data-score')
+        }
+    });
+</script>

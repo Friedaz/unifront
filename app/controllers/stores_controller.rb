@@ -1,5 +1,6 @@
 class StoresController < InheritedResources::Base
-
+include CurrentCart
+  before_action :set_cart
 
   private
 

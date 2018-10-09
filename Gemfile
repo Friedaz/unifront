@@ -72,6 +72,8 @@ gem 'hiredis', '~> 0.4.5'
 
 gem 'stripe'
 
+gem 'pg'
+
 gem "paperclip", "~> 6.0.0"
 
 gem 'will_paginate-bootstrap4'
