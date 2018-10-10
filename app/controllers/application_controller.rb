@@ -5,4 +5,7 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+include CurrentCart
+  before_action :set_cart
+
 end

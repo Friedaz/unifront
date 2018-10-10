@@ -1,7 +1,5 @@
 class HomeController < ApplicationController
 
-include CurrentCart
-  before_action :set_cart
   before_action :search_params
 
 

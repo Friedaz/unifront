@@ -1,8 +1,5 @@
 class ProfilController < ApplicationController
 
-include CurrentCart
-  before_action :set_cart
-
 def index
   @products = Product.all
   @stores = Store.all

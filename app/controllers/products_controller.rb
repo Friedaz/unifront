@@ -1,9 +1,5 @@
 class ProductsController < InheritedResources::Base
 
-include CurrentCart
-  before_action :set_cart
-
-
   def index
     @products = Product.recent.order("created_at desc").page(params[:page]).per_page(3)
     @stores = Store.all
