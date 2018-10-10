@@ -12,13 +12,16 @@
 
 ActiveRecord::Schema.define(version: 2018_09_25_071117) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.string "author_type"
-    t.integer "author_id"
+    t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -44,7 +47,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_071117) do
   end
 
   create_table "images", force: :cascade do |t|
-    t.integer "product_id"
+    t.bigint "product_id"
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
@@ -55,18 +58,18 @@ ActiveRecord::Schema.define(version: 2018_09_25_071117) do
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "cart_id"
+    t.bigint "product_id"
+    t.bigint "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
-    t.integer "order_id"
+    t.bigint "order_id"
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end
 
-  create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
+  create_table "mailboxer_conversation_opt_outs", id: :serial, force: :cascade do |t|
     t.string "unsubscriber_type"
     t.integer "unsubscriber_id"
     t.integer "conversation_id"
@@ -74,13 +77,13 @@ ActiveRecord::Schema.define(version: 2018_09_25_071117) do
     t.index ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type"
   end
 
-  create_table "mailboxer_conversations", force: :cascade do |t|
+  create_table "mailboxer_conversations", id: :serial, force: :cascade do |t|
     t.string "subject", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "mailboxer_notifications", force: :cascade do |t|
+  create_table "mailboxer_notifications", id: :serial, force: :cascade do |t|
     t.string "type"
     t.text "body"
     t.string "subject", default: ""
@@ -103,7 +106,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_071117) do
     t.index ["type"], name: "index_mailboxer_notifications_on_type"
   end
 
-  create_table "mailboxer_receipts", force: :cascade do |t|
+  create_table "mailboxer_receipts", id: :serial, force: :cascade do |t|
     t.string "receiver_type"
     t.integer "receiver_id"
     t.integer "notification_id", null: false
@@ -121,8 +124,8 @@ ActiveRecord::Schema.define(version: 2018_09_25_071117) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "cart_id"
+    t.bigint "user_id"
+    t.bigint "cart_id"
     t.decimal "total_price"
     t.date "payment_time"
     t.datetime "created_at", null: false
@@ -137,8 +140,8 @@ ActiveRecord::Schema.define(version: 2018_09_25_071117) do
     t.string "image"
     t.decimal "price"
     t.datetime "expired"
-    t.integer "user_id"
-    t.integer "store_id"
+    t.bigint "user_id"
+    t.bigint "store_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_file_name"
@@ -162,7 +165,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_071117) do
     t.string "name"
     t.text "description"
     t.string "logo"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "logo_file_name"
@@ -187,4 +190,16 @@ ActiveRecord::Schema.define(version: 2018_09_25_071117) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "images", "products"
+  add_foreign_key "line_items", "carts"
+  add_foreign_key "line_items", "orders"
+  add_foreign_key "line_items", "products"
+  add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
+  add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
+  add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"
+  add_foreign_key "orders", "carts"
+  add_foreign_key "orders", "users"
+  add_foreign_key "products", "stores"
+  add_foreign_key "products", "users"
+  add_foreign_key "stores", "users"
 end

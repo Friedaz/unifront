@@ -1,18 +1,22 @@
-# SQLite version 3.x
-#   gem install pg
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'pg'
-#
 default: &default
   adapter: postgresql
-  database: db/development.postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-  timeout: 5000
+  username: friedaz
+  password: 123456
+
+  host: localhost
+
+  # The TCP port the server listens on. Defaults to 5432.
+  # If your server runs on a different port number, change accordingly.
+  port: 5432
 
 development:
   <<: *default
-  database: db/development.postgresql
+  adapter: postgresql
+  database: unifront
   pool: 5
   timeout: 5000
 
@@ -22,12 +26,13 @@ development:
 test:
   <<: *default
   adapter: postgresql
-  database: db/test.postgresql
+  database: unifront
   pool: 5
   timeout: 5000
 
 production:
-  <<: *default
-  database: db/production.postgresql
-  pool: 5
-  timeout: 5000
+   <<: *default
+   adapter: postgresql
+   database: unifront
+   pool: 5
+   timeout: 5000
