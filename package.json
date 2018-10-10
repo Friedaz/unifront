@@ -4,5 +4,27 @@
   "dependencies": {
     "card": "^2.4.0",
     "jquery": "^3.3.1"
-  }
+  },
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Friedaz/unifront.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Friedaz/unifront/issues"
+  },
+  "homepage": "https://github.com/Friedaz/unifront#readme"
 }
