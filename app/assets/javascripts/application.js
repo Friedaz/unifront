@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require lightbox-bootstrap
+
 //= require activestorage
 //= require jquery3
 //= require jquery_ujs

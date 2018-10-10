@@ -12,11 +12,11 @@
  *
  *= require_tree .
  *= require_self
- *= require lightbox-bootstrap
+
  */
 
 @import "bootstrap";
-@import "lightbox-bootstrap";
+
 
  #custom-search-input{
      padding: 3px;
