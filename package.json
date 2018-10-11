@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "card": "^2.4.0",
+    "heroku": "^7.16.6",
     "jquery": "^3.3.1"
   },
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
