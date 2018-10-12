@@ -90,3 +90,4 @@ gem 'lightbox-bootstrap-rails', '5.1.0.1'
 gem 'jquery-rails', '~> 4.0', '>= 4.0.5'
 gem 'mailboxer', github: 'mailboxer/mailboxer'
 gem 'bootstrap-sass'
+gem "font-awesome-rails"

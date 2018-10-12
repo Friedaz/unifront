@@ -4,7 +4,7 @@
   <div class="panel-body"> <br>
     <div class="row">
 
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-10">
         <%= link_to image_tag(@product.image.url(:medium)), image_path(@product.image.url(:large)), data: { lightbox: "product",
             title: @product.name, footer: @product.description, class: "img-fluid" }  %> <br><br>
             <div class="star-rating" data-score= <%= @avg_review %> ></div>
@@ -34,9 +34,9 @@
                             <td><b>QUANTITY</b></td>
                             <td>:</td>
                             <td>
-                                <div class="col-md-8">
+                               <!--  <div class="col-md-6">
                                         <div class="input-group">
-                                    <!-- <span class="input-group-btn">
+                                    <span class="input-group-btn">
                                         <button type="button" class="quantity-left-minus btn btn-light btn-number"  data-type="minus" data-field="">
                                           <span class="glyphicon glyphicon-minus"></span>
                                         </button>
@@ -46,8 +46,8 @@
                                         <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
                                             <span class="glyphicon glyphicon-plus"></span>
                                         </button>
-                                    </span> -->
-                                </div>
+                                    </span>
+                                </div> -->
                         </div>
                             </td>
                         </tr>

@@ -1,6 +1,56 @@
 <p id="notice"><%= notice %></p>
 <h1>Product</h1>
 
+
+<div class="album py-5 bg-light">
+<div class="container">
+    <div class="row">
+      <% @products.each do |product| %>
+        <div class="col-md-4 col-sm-8"  style="margin-top: 30px;">
+          <div class="card">
+            <div class="product-grid6">
+                <div class="card mb-4 shadow-sm" style="height: 300px;padding: 35px;">
+                    <%= link_to product do %>
+                        <img class="card-img-top"<%= image_tag product.image.url(:medium) %><alt="Card image cap">
+                    <% end %>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><%= product.name %></h3>
+                    <div class="price"><%= number_to_currency product.price %>
+                        <span><%= number_to_currency product.price * 1.1 %></span>
+                    </div>
+                </div>
+
+                <ul class="social">
+                    <li><%= link_to product, 'data-tip' => 'View' do %>
+                      <i class="fa fa-search"></i><% end %>
+                    </li>
+                      <% if  user_signed_in? && current_user[:role] == 1 && current_user[:id] != product[:user_id] %>
+                        <li>
+                          <%= button_to line_items_path(:product_id => product), {'data-tip' => 'Add to Cart'} do %>
+                            <i class="fa fa-shopping-cart"></i>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to root_path, 'data-tip' => 'Add to Wishlist' do %>
+                           <i class="fa fa-heart"></i>
+                          <% end %>
+                        </li>
+                      <% end %>
+                </ul>
+            </div>
+        </div>
+      </div>
+        <% end %>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+<!--
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
@@ -26,7 +76,7 @@
         <% end %>
         </div>
     </div>
-</div>
+</div> -->
 
  <%= will_paginate @products, list_classes: %w(pagination justify-content-end) %>
 
